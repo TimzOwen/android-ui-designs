@@ -15,15 +15,40 @@ class PropertyViewModel : ViewModel(){
     private val _nearbyProperties = MutableStateFlow<List<Property>>(emptyList())
     val nearbyProperties: StateFlow<List<Property>> = _nearbyProperties
 
+    init {
+        loadProperties()
+    }
+
 
     private fun loadProperties(){
         viewModelScope.launch {
             _recommendedProperties.value = listOf(
-                Property(1, "Apartment", "Woodland Apartments", "New York, USA", "$1500/month", 4.5, ""),
-                Property(2, "Home", "Oakleaf Cottage", "New York, USA", "$900/month", 4.0, "")
+                Property(1, "Apartment", "Woodland Apartments",
+                    "New York, USA", "$1500/month", 4.5, ""),
+                Property(2, "Home", "Oakleaf Cottage", "New York, USA",
+                    "$900/month", 4.0, ""),
+                Property(1, "Apartment", "Woodland Apartments",
+                    "New York, USA", "$1500/month", 4.5, ""),
+                Property(1, "Apartment", "Woodland Apartments",
+                    "New York, USA", "$1500/month", 4.5, ""),
+                Property(1, "Apartment", "Woodland Apartments",
+                    "New York, USA", "$1500/month", 4.5, ""),
+                Property(1, "Apartment", "Woodland Apartments",
+                    "New York, USA", "$1500/month", 4.5, "")
             )
             _nearbyProperties.value = listOf(
-                Property(3, "Villa", "BlissView Villa", "New York, USA", "$1200/month", 4.9, "")
+                Property(3, "Villa", "BlissView Villa",
+                    "New York, USA", "$1200/month", 4.9, ""),
+                Property(3, "Villa", "BlissView Villa",
+                    "New York, USA", "$1200/month", 4.9, ""),
+                Property(3, "Villa", "BlissView Villa",
+                    "New York, USA", "$1200/month", 4.9, ""),
+                Property(3, "Villa", "BlissView Villa",
+                    "New York, USA", "$1200/month", 4.9, ""),
+                Property(3, "Villa", "BlissView Villa",
+                    "New York, USA", "$1200/month", 4.9, ""),
+                Property(3, "Villa", "BlissView Villa",
+                    "New York, USA", "$1200/month", 4.9, "")
             )
         }
     }
