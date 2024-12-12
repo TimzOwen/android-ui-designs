@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.timzowen.realestate254.viewmodel.PropertyViewModel
 import com.timzowen.realestate254.widgets.PropertyCard
+import com.timzowen.realestate254.widgets.PropertyCardRow
 import com.timzowen.realestate254.widgets.SearchAndFilter
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -56,7 +57,7 @@ fun PropertyHomeScreen(viewModel: PropertyViewModel){
 
             LazyColumn {
                 items(nearbyProperties.size){
-                    PropertyCard(property = nearbyProperties[it])
+                    PropertyCardRow(property = nearbyProperties[it])
                 }
             }
         }
