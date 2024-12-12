@@ -24,6 +24,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -79,6 +83,53 @@ fun PropertyCard(property: Property){
     }
 }
 
+@Composable
+fun PropertyCardRow(property: Property){
+    Card(
+        modifier = Modifier
+            .padding(8.dp)
+            .fillMaxWidth(),
+        shape = RoundedCornerShape(5.dp),
+        elevation = CardDefaults.cardElevation(4.dp)
+    ) {
+        Row {
+            Surface(modifier = Modifier
+                .size(70.dp),
+                shape = RoundedCornerShape(8.dp)
+            ) {
+                Image(
+                    painter = painterResource(R.drawable.image_realestate),
+                    contentDescription = "house",
+                    contentScale = ContentScale.Crop)
+            }
+            Column {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 4.dp, end = 4.dp)
+                ) {
+                    Text(
+                        text = property.propertyType, fontSize = 12.sp,
+                        style = MaterialTheme.typography.titleSmall,
+                        modifier = Modifier.weight(1f),
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                    androidx.compose.material3.Icon(
+                        imageVector = Icons.Default.Star,
+                        contentDescription = "Rating",
+                        tint = Color(0xFFFFC107),
+                        modifier = Modifier.size(14.dp)
+                    )
+                    Text(text = "${property.propertyRating}", fontSize = 8.sp)
+                    Spacer(modifier = Modifier.width(4.dp))
+                }
+                PropertyInfoCard(property = property)
+            }
+        }
+    }
+}
+
 
 @Composable
 fun PropertyInfoCard(property: Property){
@@ -100,16 +151,25 @@ fun PropertyInfoCard(property: Property){
     }
 }
 
+
+
+@Composable
+fun searchLocation(){
+
+}
 @Composable
 fun SearchAndFilter() {
+    var currentSearch by remember { mutableStateOf("") }
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         TextField(
-            value = "",
-            onValueChange = {},
+            value = currentSearch,
+            onValueChange = {
+                currentSearch = it
+            },
             modifier = Modifier.weight(1f),
             placeholder = { Text("Search") }
         )
@@ -125,9 +185,17 @@ fun SearchAndFilter() {
 @Preview(showBackground = true)
 fun PropertyCardPreview(){
     PropertyCard(property =
-    Property(2, "Home", "Oakleaf Cottage", "New York, USA", "$900/month", 4.0, ""))
-//    PropertyInfoCard(property =
-//    Property(1, "Apartment", "Woodland Apartments",
-//        "New York, USA", "$1500/month", 4.5,
-//        ""),)
+    Property(2, "Home", "Oakleaf Cottage",
+        "New York, USA", "$900/month", 4.0,
+        ""))
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PropertyCardPreviewRow(){
+    PropertyCardRow(property =
+    Property(2, "Home", "Oakleaf Cottage",
+        "New York, USA", "$900/month", 4.0,
+        ""))
+
 }
