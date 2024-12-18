@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -33,6 +34,9 @@ fun PropertyHomeScreen(viewModel: PropertyViewModel){
         topBar = {
             TopAppBar(
                 title = { Text(text = "Property Estate")})
+            BottomAppBar {
+                //TODO
+            }
         }
     ) { innerPadding ->
         Column(modifier = Modifier
