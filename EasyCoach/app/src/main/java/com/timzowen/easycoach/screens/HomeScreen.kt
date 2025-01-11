@@ -1,5 +1,8 @@
 package com.timzowen.easycoach.screens
 
+import android.content.Context
+import android.widget.Toast
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -32,6 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -40,12 +44,14 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.timzowen.easycoach.model.Bus
 import com.timzowen.easycoach.model.loadBuses
+import com.timzowen.easycoach.navigation.NavigationScreens
 import com.timzowen.easycoach.ui.theme.EasyCoachTheme
 import com.timzowen.easycoach.widgets.BusCard
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(navController: NavController) {
+    val context = LocalContext.current
     EasyCoachTheme {
         Scaffold(
             topBar = {
@@ -72,11 +78,30 @@ fun HomeScreen(navController: NavController) {
                         horizontalArrangement = Arrangement.SpaceEvenly,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        BottomNavIcons(icon = Icons.Default.Home, label = "Home")
-                        BottomNavIcons(icon = Icons.Default.LocationOn, label = "Bookings")
-                        BottomNavIcons(icon = Icons.Default.Menu, label = "Menu")
-                        BottomNavIcons(icon = Icons.Default.ShoppingCart, label = "Parcels")
-                        BottomNavIcons(icon = Icons.Default.Search, label = "Help")
+                        BottomNavIcons(
+                            icon = Icons.Default.Home,
+                            label = "Home",
+                            onclick = {
+                                navController.navigate(NavigationScreens.BookingsScreen.name)
+                            })
+                        BottomNavIcons(
+                            icon = Icons.Default.LocationOn,
+                            label = "Bookings",
+                            onclick = {
+                                navController.navigate(NavigationScreens.BookingsScreen)
+                            })
+                        BottomNavIcons(
+                            icon = Icons.Default.Menu,
+                            label = "Menu",
+                            onclick = {})
+                        BottomNavIcons(
+                            icon = Icons.Default.ShoppingCart,
+                            label = "Parcels",
+                            onclick = {})
+                        BottomNavIcons(
+                            icon = Icons.Default.Search,
+                            label = "Help",
+                            onclick = {})
                     }
                 }
             },
@@ -99,8 +124,11 @@ fun BusViewList(bus: List<Bus> = loadBuses()){
 }
 
 @Composable
-fun BottomNavIcons(icon: ImageVector, label: String) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+fun BottomNavIcons(icon: ImageVector, label: String, onclick: () -> Unit) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.clickable {
+            onclick()
+        }) {
         Icon(
             imageVector = icon,
             contentDescription = label
@@ -113,6 +141,7 @@ fun BottomNavIcons(icon: ImageVector, label: String) {
                 color = Color.White
             )
         )
+
     }
 }
 
