@@ -82,26 +82,32 @@ fun HomeScreen(navController: NavController) {
                             icon = Icons.Default.Home,
                             label = "Home",
                             onclick = {
-                                navController.navigate(NavigationScreens.BookingsScreen.name)
+                                navController.navigate(NavigationScreens.HomeScreen.name)
                             })
                         BottomNavIcons(
                             icon = Icons.Default.LocationOn,
                             label = "Bookings",
                             onclick = {
-                                navController.navigate(NavigationScreens.BookingsScreen)
+                                navController.navigate(NavigationScreens.BookingsScreen.name)
                             })
                         BottomNavIcons(
                             icon = Icons.Default.Menu,
                             label = "Menu",
-                            onclick = {})
+                            onclick = {
+                                navController.navigate(NavigationScreens.MenuScreen.name)
+                            })
                         BottomNavIcons(
                             icon = Icons.Default.ShoppingCart,
                             label = "Parcels",
-                            onclick = {})
+                            onclick = {
+                                navController.navigate(NavigationScreens.ParcelsScreen.name)
+                            })
                         BottomNavIcons(
                             icon = Icons.Default.Search,
                             label = "Help",
-                            onclick = {})
+                            onclick = {
+                                navController.navigate(NavigationScreens.HelpScreen.name)
+                            })
                     }
                 }
             },
