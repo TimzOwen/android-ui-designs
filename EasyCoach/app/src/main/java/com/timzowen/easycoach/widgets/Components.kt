@@ -29,12 +29,17 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import com.timzowen.easycoach.R
+import com.timzowen.easycoach.model.Bookings
 import com.timzowen.easycoach.model.Bus
+import com.timzowen.easycoach.model.loadBuses
 
 
 @Composable
@@ -81,7 +86,9 @@ fun BusCard(
                 Text(text = bus.coachDriver)
             }
             Column(
-                modifier = Modifier.fillMaxHeight(),
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .padding(end = 8.dp),
                 verticalArrangement = Arrangement.Center) {
                 Text(text = "Departure: Date")
                 Spacer(modifier = Modifier.padding(3.dp))
@@ -95,25 +102,40 @@ fun BusCard(
 }
 
 @Composable
-fun BookingCard(){
+fun BookingCard(bookedTrips: Bookings){
         Card(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(8.dp),
             elevation = CardDefaults.cardElevation(5.dp)
         ) {
             Column {
-                Row(modifier = Modifier.fillMaxWidth()
+                Row(modifier = Modifier
+                    .fillMaxWidth()
                     .padding(top = 4.dp),
                     horizontalArrangement = Arrangement.SpaceEvenly) {
-                    Text(text = "Eldoret")
+                    Text(
+                        text = bookedTrips.startDestination,
+                        style = TextStyle(
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 12.sp
+                        )
+                    )
                     Icon(imageVector = Icons.AutoMirrored.Filled.ArrowForward,
                         contentDescription = "arrow forward",
                         modifier = Modifier.size(15.dp))
-                    Text(text = "Nairobi")
+                    Text(
+                        text = bookedTrips.finalDestination,
+                        style = TextStyle(
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 12.sp
+                        )
+                    )
                 }
-                Row(modifier = Modifier.fillMaxWidth()
+                Row(modifier = Modifier
+                    .fillMaxWidth()
                     .padding(top = 6.dp, bottom = 4.dp)) {
-                    Box(modifier =Modifier
+                    Box(modifier = Modifier
                         .size(80.dp)
                         .padding(start = 6.dp)
                         .clip(RoundedCornerShape(5.dp))) {
@@ -125,10 +147,14 @@ fun BookingCard(){
                     Column(modifier = Modifier
                         .padding(start = 16.dp),
                         verticalArrangement = Arrangement.Center) {
-                        Text(text = "Booking Id: 12345678")
-                        Text(text = "Departure time: 22:00:00",
+                        Text(text = bookedTrips.bookingId.toString(),
+                            style = TextStyle(
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.Bold
+                            ))
+                        Text(text = "Departure time: ${bookedTrips.departureTime}",
                             modifier = Modifier.padding(top = 6.dp, bottom = 6.dp))
-                        Text(text = "Travel date: 15 - Jan - 2025")
+                        Text(text = "Travel date: ${bookedTrips.departureDate}")
                     }
                 }
             }
@@ -137,11 +163,7 @@ fun BookingCard(){
     }
 
 
-@Preview(showBackground = true)
-@Composable
-fun BookingScreenPreview(){
-    BookingCard()
-}
+
 
 @Preview(showBackground = true)
 @Composable
